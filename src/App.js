@@ -1,6 +1,8 @@
 import React from 'react';
 import Header from './components/Header/index';
 import withStoriesContainer from './hoc/withStoriesContainer';
+import { HashRouter as Router, Route } from 'react-router-dom';
+import StoryModal from './components/Stories/StoryModal';
 import StoriesContainer from './components/Stories/StoriesContainer';
 
 import './App.scss';
@@ -10,18 +12,19 @@ import './style/style.scss';
 
 let EnhancedStoriesContainer = withStoriesContainer(StoriesContainer);
 
-class App extends React.Component {
+function App() {
 
-  render() {
     return (
-      <div className="App">
-        <Header />
-        <div className="Container">
-          <EnhancedStoriesContainer />
+      <Router>
+        <div className="App">
+          <Header />
+          <div className="Container">
+            <Route path='/' component={EnhancedStoriesContainer} />
+            <Route path='/story/:id' component={StoryModal}/>
+          </div>
         </div>
-      </div>
+      </Router>
     )
-  }
 }
 
 export default App;

@@ -29,7 +29,7 @@ function withStoriesContainer(Component) {
     render() {
       return (
         <div>
-          { this.state.isLoading ? <p>Laoding...</p> : <Component items = {this.state.items}/>}
+          { this.state.isLoading ? <p className="firstFetchLoadP">Getting your stories...</p> : <Component items = {this.state.items}/>}
         </div>
       )
     }

@@ -1,6 +1,7 @@
 import React from 'react';
 import { ITEM } from '../../../constants/url';
 import fetchContent from '../../../services/hackernewsApi';
+import {Link} from 'react-router-dom';
 
 import './StoryListItem.scss';
 
@@ -43,7 +44,7 @@ export class StoryListItem extends React.Component {
         {
           this.state.isLoading ? (<p>Loading...</p>) : (
             <div>
-              <p className="StoryLisItem__title">{title}</p>
+              <p className="StoryLisItem__title"><Link to={`/story/${this.state.content.id}`}>{title}</Link></p>
               <p className="StoryLisItem__author">By: {by}</p>
             </div>
           )

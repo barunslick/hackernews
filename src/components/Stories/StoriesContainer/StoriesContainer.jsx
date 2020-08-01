@@ -11,34 +11,29 @@ const listStyle = {
   }
 };
 
-class StoriesContainer extends React.Component {
+function StoriesContainer(props) {
 
-  constructor(props) {
-    super(props)
-    this.data = [...props.items];
-    this.cachedData = {};
-  }
+  const data = [...props.items];
+  let cachedData = {};
 
-  updateCacheData= (item)=> {
+  function updateCacheData(item) {
     const { id } = item;
-    this.cachedData[id] = item;
+    cachedData[id] = item;
   }
 
-  render() {
-    return (
-      <div className="StoriesContainer">
-        <List
-          source={this.data}
-          rowHeight={80}
-          renderItem={({ index, style }) => (
-            <div key={index} style={{ ...listStyle.item, ...style }}>
-              <StoryListItem key={index} itemId={this.data[index]} updateCacheData={this.updateCacheData} cachedData={this.cachedData.hasOwnProperty(this.data[index]) ? this.cachedData[this.data[index]] : null} />
-            </div>
-          )}
-        />
-      </div>
-    )
-  }
+  return (
+    <div className="StoriesContainer">
+      <List
+        source={data}
+        rowHeight={80}
+        renderItem={({ index, style }) => (
+          <div key={index} style={{ ...listStyle.item, ...style }}>
+            <StoryListItem key={index} itemId={data[index]} updateCacheData={updateCacheData} cachedData={cachedData.hasOwnProperty(data[index]) ? cachedData[data[index]] : null} />
+          </div>
+        )}
+      />
+    </div>
+  )
 }
 
 export default StoriesContainer;
