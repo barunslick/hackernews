@@ -5,4 +5,18 @@
   background-color: $hacker-green;
   padding: 16px 0px;
   color: $white;
+  position: relative;
+  height: 60px;
+
+  @include e(container){
+    position: absolute;
+    width: 80%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+
+    @include mq(lg){
+      width: 90%;
+    }
+  }
 }

@@ -1,8 +1,9 @@
 import React from 'react';
-/* import { ITEM } from '../../../constants/url';
-import fetchContent from '../../../services/hackernewsApi'; */
+import { ITEM } from '../../../constants/url';
+import fetchContent from '../../../services/hackernewsApi';
 
 import './StoryListItem.scss';
+
 
 export class StoryListItem extends React.Component {
 
@@ -14,10 +15,9 @@ export class StoryListItem extends React.Component {
     }
   }
 
-  /* async getStories() {
+  async getStories() {
     let storyUrl = `${ITEM + this.props.itemId}.json`
     let result = await fetchContent(storyUrl);
-    console.log(result)
     this.setState({
       content: result,
       isLoading: false
@@ -27,13 +27,21 @@ export class StoryListItem extends React.Component {
   componentDidMount() {
     this.getStories();
   }
- */
 
   render() {
+    const { title, by } = this.state.content || '';
     return (
-      <div className="ListItem">
-
+      <div className="StoryLisItem">
+        {
+          this.state.isLoading ? (<p>Loading...</p>) : (
+            <div>
+              <p className="StoryLisItem__title">{title}</p>
+              <p className="StoryLisItem__author">By: {by}</p>
+            </div>
+          )
+        }
       </div>
+
     )
   }
 }

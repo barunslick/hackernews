@@ -14,7 +14,7 @@ class App extends React.Component {
 
   render() {
     return (
-      <div classname="App">
+      <div className="App">
         <Header />
         <div className="Container">
           <EnhancedStoriesContainer />

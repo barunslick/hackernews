@@ -4,8 +4,8 @@ import './Header.scss';
 export function Header (){
   return (
     <div className="Header">
-      <div className="container">
-      <h1>Hackernews</h1>
+      <div className="Header__container">
+        <h1>Hackernews</h1>
       </div>  
     </div>
   )
