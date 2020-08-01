@@ -1,9 +1,26 @@
 import React from 'react';
-import './App.css';
+import Header from './components/Header/index';
+import withStoriesContainer from './hoc/withStoriesContainer';
+import StoriesContainer from './components/Stories/StoriesContainer';
+
+import './App.scss';
+import './style/base.scss';
+import './style/reset.scss';
+import './style/style.scss';
+
+let EnhancedStoriesContainer = withStoriesContainer(StoriesContainer);
 
 class App extends React.Component {
+
   render() {
-    return null;
+    return (
+      <div classname="App">
+        <Header />
+        <div className="Container">
+          <EnhancedStoriesContainer />
+        </div>
+      </div>
+    )
   }
 }
 
