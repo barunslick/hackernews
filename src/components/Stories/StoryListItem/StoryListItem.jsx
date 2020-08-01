@@ -22,10 +22,18 @@ export class StoryListItem extends React.Component {
       content: result,
       isLoading: false
     })
+    this.props.updateCacheData(result);
   }
 
   componentDidMount() {
-    this.getStories();
+    if (this.props.cachedData === null){
+      this.getStories();
+    }else{
+      this.setState({
+        content: this.props.cachedData,
+        isLoading: false
+      })
+    }
   }
 
   render() {
