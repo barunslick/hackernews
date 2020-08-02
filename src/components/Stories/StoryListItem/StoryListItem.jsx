@@ -43,10 +43,10 @@ export class StoryListItem extends React.Component {
       <div className="StoryLisItem">
         {
           this.state.isLoading ? (<p>Loading...</p>) : (
-            <div>
+            <>
               <p className="StoryLisItem__title"><Link to={`/story/${this.state.content.id}`}>{title}</Link></p>
               <p className="StoryLisItem__author">By: {by}</p>
-            </div>
+            </>
           )
         }
       </div>
