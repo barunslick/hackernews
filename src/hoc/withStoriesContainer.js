@@ -10,16 +10,23 @@ function withStoriesContainer(Component) {
       super();
       this.state = {
         isLoading: true,
+        showLoadingText: 'Getting your stories...',
         items: []
       }
     }
 
     async getStories() {
-        let result = await fetchContent(TOP_STORIES);
+      let result = await fetchContent(TOP_STORIES);
+      if (result.error) {
+        this.setState({
+          showLoadingText: 'We seem to have problem connecting to Hackernews. Try again later.(Bad URL)',
+        })
+      }else{
         this.setState({
           items: result,
           isLoading: false
         })
+      }
     }
 
     componentDidMount() {
@@ -29,7 +36,7 @@ function withStoriesContainer(Component) {
     render() {
       return (
         <div>
-          {this.state.isLoading ? <p className="firstFetchLoadP">Getting your stories...</p> : <Component items={this.state.items} />}
+          {this.state.isLoading ? <p className="firstFetchLoadP">{this.state.showLoadingText}</p> : <Component items={this.state.items} />}
         </div>
       )
     }
