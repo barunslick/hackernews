@@ -1,7 +1,8 @@
 import React from 'react';
+import CommentCard from './CommentCard';
+import { ITEM } from '../../constants/url';
+
 import './Comment.scss';
-import { ITEM, USER_PROFILE } from '../../constants/url';
-import mapTimeOfUpload from '../../utilites/mapTimeOfUpload';
 
 export class Comment extends React.Component {
 
@@ -45,14 +46,7 @@ export class Comment extends React.Component {
       <>
         {this.state.isLoading ? '' :
           <div className='Comment'>
-            <div className="Comment__sub-content">
-              <div className="Comment__header">
-                <a className="Comment__username" href={`${USER_PROFILE + by}`}><span dangerouslySetInnerHTML={{ __html: by }} ></span></a>
-                <span>&middot;</span>
-                <span className="Comment__time">{mapTimeOfUpload(time)}</span>
-              </div>
-              <p className="Comment__text" dangerouslySetInnerHTML={{ __html: text }}></p>
-            </div>
+            <CommentCard by={by} time={time} text={text} />
             {(kids || []).map(comment => (
               <Comment key={comment} commentId={comment} type="child" />
             ))

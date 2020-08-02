@@ -1,0 +1,45 @@
+@import '../../../style/base.scss';
+
+.CommentCard{
+  @include e(username){
+    a,span{
+      color: $blue !important;
+        &:hover {
+          color: darken($color: $blue, $amount: 70%) !important;
+        }
+    }
+  }
+
+  @include e(time){
+    color: $gray;
+    font-size: 13px;
+  }
+
+  @include e(text){
+    margin-top: 10px;
+
+  }
+
+  @include e(header){
+
+    span{
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+
+  @include e(sub-content){
+    padding: 8px 12px;
+    background-color: #F0F2F7;
+    border-radius: 6px;
+    line-height: 1.4;
+    font-size: 16px;
+
+    a{
+      color:#7284d2;
+        &:hover {
+          color: darken($color: #7284d2, $amount: 30%);
+        }
+    }
+  }
+}
