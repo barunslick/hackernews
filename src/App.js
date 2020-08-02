@@ -1,19 +1,18 @@
 import React from 'react';
+import withModal from './hoc/withModal';
 import Header from './components/Header/index';
 import withStoriesContainer from './hoc/withStoriesContainer';
 import { HashRouter as Router, Route } from 'react-router-dom';
-/* import StoryModal from './components/Stories/StoryModal'; */
-import StoriesContainer from './components/Stories/StoriesContainer';
 import FullStoryView from './components/Stories/FullStoryView';
-import withModal from './hoc/withModal';
+import StoriesContainer from './components/Stories/StoriesContainer';
 
 import './App.scss';
 import './style/base.scss';
 import './style/reset.scss';
 import './style/style.scss';
 
-let EnhancedStoriesContainer = withStoriesContainer(StoriesContainer);
 let EnhancedStoryView = withModal(FullStoryView);
+let EnhancedStoriesContainer = withStoriesContainer(StoriesContainer);
 
 function App() {
 

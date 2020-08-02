@@ -7,16 +7,14 @@
   color: $white;
   position: relative;
   height: 60px;
+  font-size: 18px;
 
   @include e(container){
     position: absolute;
-    width: 80%;
+    width: 82%;
     left: 50%;
     top: 50%;
+    max-width: 880px;
     transform: translate(-50%, -50%);
-
-    @include mq(lg){
-      width: 90%;
-    }
   }
 }

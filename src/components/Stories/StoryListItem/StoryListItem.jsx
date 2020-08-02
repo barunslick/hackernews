@@ -1,9 +1,11 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ITEM, USER_PROFILE } from '../../../constants/url';
+import mapTimeOfUpload from '../../../utilites/mapTimeOfUpload';
 /* import fetchContent from '../../../services/hackernewsApi'; */
 
 import './StoryListItem.scss';
+import '../../Common/Loader/loader.scss';
 
 export class StoryListItem extends React.Component {
 
@@ -13,6 +15,9 @@ export class StoryListItem extends React.Component {
       isLoading: true,
       content: {}
     }
+
+    //Abort Controller is an experimental feature and doesnt work on IE.
+    //Use Axios for better handling. I am using this to be familiar with the Api.
     this.controller = new AbortController();
   }
 
@@ -28,9 +33,9 @@ export class StoryListItem extends React.Component {
         content: result,
         isLoading: false
       })
+
       this.props.updateCacheData(result);
     } catch (error) {
-
       return;
     }
   }
@@ -51,21 +56,29 @@ export class StoryListItem extends React.Component {
   }
 
   render() {
-    const { title, by } = this.state.content || '';
+    const { title, by } = this.state.content || {};
     return (
       <div className="StoryLisItem">
         {
-          this.state.isLoading ? (<p>Loading...</p>) : (
-            <>
-              <p className="StoryLisItem__title">
-                <Link to={{
-                  pathname: `/story/${this.state.content.id}`, query: { kids: this.state.content.kids }
-                }}>
-                  {title}
-                </Link></p>
-              <p className="StoryLisItem__author">By: <a href={USER_PROFILE + by}>{by}</a></p>
-            </>
-          )
+          this.state.isLoading ?
+            <div className="loader">Loading...</div>
+            : (
+              <>
+                <p className="StoryLisItem__title">
+                  <Link to={{
+                    pathname: `/story/${this.state.content.id}`
+                  }}>
+                    {title}
+                  </Link></p>
+                <p className="StoryLisItem__details">
+                  <span className="StoryLisItem__author">By: <a href={USER_PROFILE + by}>{by}</a>
+                  </span>
+                  <span className="StoryLisItem__time">
+                    {mapTimeOfUpload(this.state.content.time)} ago
+                  </span>
+                </p>
+              </>
+            )
         }
       </div>
 

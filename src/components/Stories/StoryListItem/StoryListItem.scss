@@ -6,25 +6,38 @@
   position: absolute;
   top:50%;
   left: 50%;
+  max-width: 860px;
   transform: translate(-50%, -50%);
 
   @include e(title){
-    font-size: 15px;
-    
+    font-size: 16px;
+    line-height: 1.4;
+    @include mq(md){
+      font-size: 20px;
+    }
   }
 
-  @include e(author){
+  @include e(details){
     font-size: 13px;
-    margin-top: 6px;
+    margin-top: 12px;
     color: $caribbean-green;
-  }
 
-  @include mq(lg){
-    width: 90%;
+    span{
+      display: inline-block;
+      margin-right: 10px;
+    }
+
+    @include mq(md){
+      font-size: 14px;
+    }
   }
   a{
     &:hover {
       color: darken($color: $white, $amount: 30%);
     }
+  }
+
+  @include e(time){
+    color: $gray;
   }
 }

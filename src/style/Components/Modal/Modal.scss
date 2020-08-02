@@ -1,6 +1,6 @@
 @import '../../base.scss';
 
-.StoryModal{
+.Modal{
   position: fixed;
   top: 50%;
   left: 50%;
@@ -18,7 +18,7 @@
   }
 }
 
-.StoryModal-background{
+.Modal-background{
   opacity: 1;
   position: fixed;
   top: 0;
@@ -27,4 +27,10 @@
   right: 0;
   background-color: rgba(0,0,0,0.5);
   pointer-events: all;
+}
+
+.Modal__closeButton{
+  position: absolute;
+  right: 10px;
+  font-size: 32px;
 }

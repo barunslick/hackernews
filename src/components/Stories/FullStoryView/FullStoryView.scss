@@ -4,12 +4,30 @@
 
   @include e(header){
     padding: 5px;  
-    font-size: 15px;
+    font-size: 12px;
+    width: 96%;
+
+    @include mq(md){
+      font-size: 16px;
+    }
   }
 
   @include e(details){
-    margin-top: 10px;
+    margin-top: 4px;
+    font-size: 13px;
     line-height: 1.6;
+    span{
+      display: inline-block;
+      margin-right: 6px;
+    }
+
+    .gray{
+      color: $slate-gray;
+    }
+    @include mq(md){
+      font-size: 15px;
+    }
+
   }
 
   a{
@@ -34,12 +52,12 @@
   }
 
   @include e(comment){
-    margin-top: 24px;
+    margin-top: 14px;
+    padding: 10px 0px;
   }
 
   @include e(comment-header){
     padding:5px;
   }
-
 }
 
