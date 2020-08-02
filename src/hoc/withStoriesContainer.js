@@ -4,7 +4,7 @@ import fetchContent from '../services/hackernewsApi';
 
 function withStoriesContainer(Component) {
 
-  return class WrappedComponent extends React.Component{
+  return class WrappedComponent extends React.Component {
 
     constructor() {
       super();
@@ -15,11 +15,11 @@ function withStoriesContainer(Component) {
     }
 
     async getStories() {
-      let result = await fetchContent(TOP_STORIES);
-      this.setState({
-        items: result,
-        isLoading: false
-      })
+        let result = await fetchContent(TOP_STORIES);
+        this.setState({
+          items: result,
+          isLoading: false
+        })
     }
 
     componentDidMount() {
@@ -29,7 +29,7 @@ function withStoriesContainer(Component) {
     render() {
       return (
         <div>
-          { this.state.isLoading ? <p className="firstFetchLoadP">Getting your stories...</p> : <Component items = {this.state.items}/>}
+          {this.state.isLoading ? <p className="firstFetchLoadP">Getting your stories...</p> : <Component items={this.state.items} />}
         </div>
       )
     }

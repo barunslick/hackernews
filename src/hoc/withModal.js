@@ -8,19 +8,7 @@ function withModal(Component) {
     closeModal = () => {
       this.props.history.goBack();
     }
-
-    getStyleModal = () => {
-      return {
-
-      }
-    }
-
-    getStyleModalContainer = ()=>{
-      return {
-
-      }
-    }
-
+    
     render() {
       return (
         <>

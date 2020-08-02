@@ -1,10 +1,9 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ITEM } from '../../../constants/url';
-import fetchContent from '../../../services/hackernewsApi';
-import {Link} from 'react-router-dom';
+/* import fetchContent from '../../../services/hackernewsApi'; */
 
 import './StoryListItem.scss';
-
 
 export class StoryListItem extends React.Component {
 
@@ -14,27 +13,41 @@ export class StoryListItem extends React.Component {
       isLoading: true,
       content: {}
     }
+    this.controller = new AbortController();
   }
 
   async getStories() {
-    let storyUrl = `${ITEM + this.props.itemId}.json`
-    let result = await fetchContent(storyUrl);
-    this.setState({
-      content: result,
-      isLoading: false
-    })
-    this.props.updateCacheData(result);
+    let storyUrl = `${ITEM + this.props.itemId}.json`;
+
+    try {
+      //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
+      let result = await fetch(storyUrl, {signal: this.controller.signal})
+      .then(response => response.json())
+      .then(data => data);
+      this.setState({
+        content: result,
+        isLoading: false
+      })
+      this.props.updateCacheData(result);
+    } catch (error) {
+      
+      return;
+    }
   }
 
   componentDidMount() {
-    if (this.props.cachedData === null){
+    if (this.props.cachedData === null) {
       this.getStories();
-    }else{
+    } else {
       this.setState({
         content: this.props.cachedData,
         isLoading: false
       })
     }
+  }
+
+  componentWillUnmount(){
+    this.controller.abort();
   }
 
   render() {
