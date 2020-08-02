@@ -36,7 +36,7 @@ function withStoriesContainer(Component) {
     render() {
       return (
         <div>
-          {this.state.isLoading ? <p className="firstFetchLoadP">{this.state.showLoadingText}</p> : <Component items={this.state.items} />}
+          {this.state.isLoading ? <p className="firstFetchLoadP">{this.state.showLoadingText} </p> : <Component items={this.state.items} />}
         </div>
       )
     }

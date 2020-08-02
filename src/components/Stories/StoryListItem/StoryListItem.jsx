@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ITEM } from '../../../constants/url';
+import { ITEM, USER_PROFILE } from '../../../constants/url';
 /* import fetchContent from '../../../services/hackernewsApi'; */
 
 import './StoryListItem.scss';
@@ -21,16 +21,16 @@ export class StoryListItem extends React.Component {
 
     try {
       //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
-      let result = await fetch(storyUrl, {signal: this.controller.signal})
-      .then(response => response.json())
-      .then(data => data);
+      let result = await fetch(storyUrl, { signal: this.controller.signal })
+        .then(response => response.json())
+        .then(data => data);
       this.setState({
         content: result,
         isLoading: false
       })
       this.props.updateCacheData(result);
     } catch (error) {
-      
+
       return;
     }
   }
@@ -46,7 +46,7 @@ export class StoryListItem extends React.Component {
     }
   }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.controller.abort();
   }
 
@@ -57,8 +57,13 @@ export class StoryListItem extends React.Component {
         {
           this.state.isLoading ? (<p>Loading...</p>) : (
             <>
-              <p className="StoryLisItem__title"><Link to={`/story/${this.state.content.id}`}>{title}</Link></p>
-              <p className="StoryLisItem__author">By: {by}</p>
+              <p className="StoryLisItem__title">
+                <Link to={{
+                  pathname: `/story/${this.state.content.id}`, query: { kids: this.state.content.kids }
+                }}>
+                  {title}
+                </Link></p>
+              <p className="StoryLisItem__author">By: <a href={USER_PROFILE + by}>{by}</a></p>
             </>
           )
         }

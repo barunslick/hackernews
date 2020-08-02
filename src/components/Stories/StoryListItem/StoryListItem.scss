@@ -22,4 +22,9 @@
   @include mq(lg){
     width: 90%;
   }
+  a{
+    &:hover {
+      color: darken($color: $white, $amount: 30%);
+    }
+  }
 }
