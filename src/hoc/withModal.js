@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/Components/Modal/Modal.scss';
+import Button from '../components/Common/Button';
 
 function withModal(Component) {
 
@@ -12,10 +13,11 @@ function withModal(Component) {
     render() {
       return (
         <>
-          <div className="StoryModal">
+          <div className="Modal">
+            <Button className="Modal__closeButton" onClick={this.closeModal}>&times;</Button>
             <Component {...this.props} />
           </div>
-          <div className="StoryModal-background" onClick={this.closeModal}></div>
+          <div className="Modal-background" onClick={this.closeModal}></div>
         </>
       )
     }
