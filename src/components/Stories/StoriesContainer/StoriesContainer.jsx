@@ -1,7 +1,8 @@
 import React from 'react';
-import List from 'react-virtualized-listview';
-import './StoriesContainer.scss';
 import StoryListItem from '../StoryListItem';
+import List from 'react-virtualized-listview';
+
+import './StoriesContainer.scss';
 
 const listStyle = {
   item: {

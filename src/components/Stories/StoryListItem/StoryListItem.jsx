@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ITEM, USER_PROFILE } from '../../../constants/url';
 import mapTimeOfUpload from '../../../utilites/mapTimeOfUpload';
-/* import fetchContent from '../../../services/hackernewsApi'; */
 
 import './StoryListItem.scss';
 import '../../Common/Loader/loader.scss';
@@ -13,7 +12,8 @@ export class StoryListItem extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      content: {}
+      content: {},
+      error: false
     }
 
     //Abort Controller is an experimental feature and doesnt work on IE.
@@ -22,22 +22,33 @@ export class StoryListItem extends React.Component {
   }
 
   async getStories() {
+
     let storyUrl = `${ITEM + this.props.itemId}.json`;
 
-    try {
-      //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
-      let result = await fetch(storyUrl, { signal: this.controller.signal })
-        .then(response => response.json())
-        .then(data => data);
+    //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
+    let result = await fetch(storyUrl, { signal: this.controller.signal })
+      .then(response => response.json())
+      .then(data => data)
+      .catch(_ => {return null});
+    
+    //when component is unmounted, check abort signal
+    if (this.controller.signal.aborted) return;
+
+    if (result === null){
       this.setState({
-        content: result,
-        isLoading: false
+        error: true
       })
 
-      this.props.updateCacheData(result);
-    } catch (error) {
       return;
     }
+
+    this.setState({
+      content: result,
+      isLoading: false,
+      error: false
+    })
+
+    this.props.updateCacheData(result);
   }
 
   componentDidMount() {
@@ -56,7 +67,15 @@ export class StoryListItem extends React.Component {
   }
 
   render() {
+
+    if (this.state.error) return(
+      <div className="StoryLisItem">
+        Can't get your stories
+      </div>
+    )
+
     const { title, by } = this.state.content || {};
+
     return (
       <div className="StoryLisItem">
         {

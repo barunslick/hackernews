@@ -11,7 +11,8 @@ export class Comment extends React.Component {
     super(props);
     this.state = {
       isLoading: true,
-      content: {}
+      content: {},
+      error: false
     }
 
     //Abort Controller is an experimental feature and doesnt work on IE.
@@ -21,19 +22,29 @@ export class Comment extends React.Component {
   }
 
   async getComments() {
-    let storyUrl = `${ITEM + this.commentId}.json`;
-    try {
-      //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
-      let result = await fetch(storyUrl, { signal: this.controller.signal })
-        .then(response => response.json())
-        .then(data => data);
+
+    let commentUrl = `${ITEM + this.commentId}.json`;
+
+    //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
+    let result = await fetch(commentUrl, { signal: this.controller.signal })
+      .then(response => response.json())
+      .then(data => data)
+      .catch(_ => { return null });
+
+    if (this.controller.signal.aborted) return;
+
+    if (result === null) {
       this.setState({
-        content: result,
-        isLoading: false
+        error: true
       })
-    } catch (error) {
+
       return;
     }
+
+    this.setState({
+      content: result,
+      isLoading: false
+    })
   }
 
   componentDidMount() {
@@ -45,12 +56,18 @@ export class Comment extends React.Component {
   }
 
   render() {
-    const { by, time, text, kids }  = this.state.content || {};
+
+    if (this.state.error) return (
+      <div className='Comment'>
+        Cant fetch comment.
+      </div>
+    )
+    const { by, time, text, kids } = this.state.content || {};
     return (
       <>
         {this.state.isLoading ?
           <div className='Comment'>
-              <CommentCard isLoading={true} />
+            <CommentCard isLoading={true} />
           </div>
           :
           <div className='Comment'>

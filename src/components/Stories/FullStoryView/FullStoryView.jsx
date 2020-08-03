@@ -15,6 +15,7 @@ export class FullStoryView extends React.Component {
       kids: [],
       title: '',
       result: {},
+      error: false
     }
 
     //Abort Controller is an experimental feature and doesnt work on IE.
@@ -27,22 +28,28 @@ export class FullStoryView extends React.Component {
 
     let storyUrl = `${ITEM + this.storyId}.json`;
 
-    try {
-      //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
-      let result = await fetch(storyUrl, { signal: this.controller.signal })
-        .then(response => response.json())
-        .then(data => data);
+    //fetch is used here instead of calling hackernewsApi.js, so that we can abort the call easily when the component unmounts
+    let result = await fetch(storyUrl, { signal: this.controller.signal })
+      .then(response => response.json())
+      .then(data => data)
+      .catch(_ => { return null });
 
+    if (this.controller.signal.aborted) return;
+
+    if (result === null) {
       this.setState({
-        kids: result.kids,
-        title: result.title,
-        result: result,
-        isLoading: false
+        error: true
       })
-    } catch (error) {
 
       return;
     }
+
+    this.setState({
+      kids: result.kids,
+      title: result.title,
+      result: result,
+      isLoading: false
+    })
   }
 
   componentDidMount() {
@@ -55,9 +62,15 @@ export class FullStoryView extends React.Component {
 
   render() {
 
+    if (this.state.error) return (
+      <div className="FullStoryView">
+        Cant fetch content right now.
+      </div>
+    )
+
     return (
       <div className="FullStoryView">
-        {this.state.isLoading ? <div className="loader center">Loading...</div>: 
+        {this.state.isLoading ? <div className="loader center">Loading...</div> :
           <>
             <div className="FullStoryView__header">
 
