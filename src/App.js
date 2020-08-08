@@ -2,7 +2,6 @@ import React from 'react';
 
 import { HashRouter as Router, Route } from 'react-router-dom';
 
-import withModal from './hoc/withModal';
 import Header from './components/header';
 import * as routeUrls from './constants/routeUrl';
 import withStoriesContainer from './hoc/withStoriesContainer';
@@ -13,7 +12,6 @@ import './style/base.scss';
 import './style/reset.scss';
 import './style/style.scss';
 
-const EnhancedStoryView = withModal(FullStoryView);
 const EnhancedStoriesContainer = withStoriesContainer(StoriesContainer);
 
 /**
@@ -28,7 +26,7 @@ function App() {
         <Header />
         <div className="Container">
           <Route path={routeUrls.BASE} component={EnhancedStoriesContainer} />
-          <Route path={routeUrls.STORY} component={EnhancedStoryView} />
+          <Route path={routeUrls.STORY} component={FullStoryView} />
         </div>
       </div>
     </Router>

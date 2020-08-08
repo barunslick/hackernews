@@ -3,6 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Comment from '../../comment';
+import withModal from '../../../hoc/withModal';
 import * as string from '../../../constants/string';
 import { ITEM, USER_PROFILE } from '../../../constants/url';
 import mapTimeOfUpload from '../../../utils/mapTimeOfUpload';
@@ -145,4 +146,4 @@ FullStoryView.propTypes = {
   match: PropTypes.object,
 };
 
-export default FullStoryView;
+export default withModal(FullStoryView);
