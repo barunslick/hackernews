@@ -1,0 +1,39 @@
+@import '../../../style/base.scss';
+
+.StoryLisItem{
+  color: $white;
+  width: 80%;
+  position: absolute;
+  top:50%;
+  left: 50%;
+  max-width: 860px;
+  transform: translate(-50%, -50%);
+
+  @include e(title){
+    font-size: $base__font-size;
+    line-height: 1.4;
+    @include mq(md){
+      font-size: $xl-font-size;
+    }
+  }
+
+  @include e(details){
+    font-size: $default-font-size;
+    margin-top: 12px;
+    color: $caribbean-green;
+
+    span{
+      display: inline-block;
+      margin-right: 10px;
+    }
+  }
+  a{
+    &:hover {
+      color: darken($color: $white, $amount: 30%);
+    }
+  }
+
+  @include e(time){
+    color: $gray;
+  }
+}

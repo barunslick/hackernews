@@ -24,7 +24,7 @@
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": ["react-app", "eslint-config-leapfrog/react"]
   },
   "browserslist": {
     "production": [
@@ -37,5 +37,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "eslint-config-leapfrog": "^3.0.0"
   }
 }

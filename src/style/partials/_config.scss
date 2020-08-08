@@ -93,6 +93,8 @@ $palettes: (
 $default-font-size: $base__font-size - 2px;
 $small-font-size: $default-font-size - 2px;
 $lg-font-size: $default-font-size + 2px;
+$xl-font-size: $default-font-size + 4px;
+$xm-font-size: $default-font-size - 4px;
 
 //Heading font size vairables
 $heading-line-height: 28px !default;

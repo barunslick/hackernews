@@ -1,0 +1,58 @@
+@import '../../../style/base.scss';
+
+.CommentCard{
+
+  overflow: auto;
+
+  @include e(username){
+    font-size: $default-font-size;
+    a,span{
+      color: $blue !important;
+        &:hover {
+          color: darken($color: $blue, $amount: 70%) !important;
+        }
+    }
+
+    @include mq(md){
+      font-size: $lg-font-size;
+    }
+  }
+
+  @include e(time){
+    color: $gray;
+    font-size: $default-font-size;
+  }
+
+  @include e(textContent){
+    margin-top: 8px;
+    font-size: $base__font-size;
+
+    @include mq(md){
+      font-size: $lg-font-size;
+    }
+  }
+
+  @include e(header){
+    span{
+      display: inline;
+      margin-right: 10px;
+    }
+  }
+
+  @include e(sub-content){
+    padding: 12px;
+    background-color: #F0F2F7;
+    border-radius: 6px;
+    line-height: 1.4;
+    font-size: $lg-font-size;
+    min-width: 40px;
+
+    a{
+      color:#7284d2;
+        &:hover {
+          color: darken($color: #7284d2, $amount: 30%);
+        }
+    }
+    
+  }
+}
