@@ -1,0 +1,20 @@
+@import '../../style/base.scss';
+
+.Header{
+  width: 100%;
+  background-color: $hacker-green;
+  padding: 16px 0px;
+  color: $white;
+  position: relative;
+  height: 60px;
+  font-size: $lg-font-size;
+
+  @include e(container){
+    position: absolute;
+    width: 82%;
+    left: 50%;
+    top: 50%;
+    max-width: 880px;
+    transform: translate(-50%, -50%);
+  }
+}
