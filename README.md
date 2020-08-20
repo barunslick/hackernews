@@ -1,1 +1,1 @@
-A hackernews Ui skin created with while learning React.
+A hackernews Ui skin created while learning React.
