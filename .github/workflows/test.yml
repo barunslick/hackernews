@@ -32,9 +32,9 @@ jobs:
         run: |
           commit_subject=$(echo -e "${{github.event.head_commit.message}}"|head -n 1)
 
-          regex='Merge pull request #[0-9]+ from .+/(.+)$'
+          regex='Merge pull request #[0-9]+ from ^([^\/]+)\/(.*)$'
           [[ $commit_subject =~ $regex ]]
-          echo"branch_name=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+          echo "branch_name=${BASH_REMATCH[2]}" >> $GITHUB_ENV
 
       - name: Split branch name
         uses: rishabhgupta/split-by@v1.0.1
