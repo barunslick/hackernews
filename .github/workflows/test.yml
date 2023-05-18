@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: Get branch name
         run: |
-          commit_subject=$(echo -e "${{github.event.head_commit.message}}"|tr '\n' '_')
+          commit_subject=$(echo -e "${{github.event.head_commit.message}}"|head -n 1)
 
           regex='Merge pull request #[0-9]+ from .+/(.+)$'
           [[ $commit_subject =~ $regex ]]
