@@ -21,6 +21,7 @@ jobs:
         run: echo "release=true" >> $GITHUB_ENV
 
     outputs:
+      base_branch: '${GITHUB_REF##*/}'
       release: ${{env.release}}
 
   setup:
@@ -45,7 +46,7 @@ jobs:
 
       - name: Print details
         run: |
-          echo "${GITHUB_REF##*/}"
+          echo "${{needs.check-release.outputs.base_branch}}"
           echo "${{steps.split.outputs._2}}"
     outputs:
       tenant: ${{ steps.split.outputs._2 }}
