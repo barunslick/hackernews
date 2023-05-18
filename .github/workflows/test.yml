@@ -45,7 +45,7 @@ jobs:
 
       - name: Print details
         run: |
-          echo ${ steps.split.outputs._2 }
+          echo "${{steps.split.outputs._2}}"
     outputs:
       tenant: ${{ steps.split.outputs._2 }}
       image_name: 'ingestion-${{steps.split.outputs._2}}'
