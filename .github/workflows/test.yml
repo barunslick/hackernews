@@ -45,6 +45,7 @@ jobs:
 
       - name: Print details
         run: |
+          echo "${GITHUB_REF##*/}"
           echo "${{steps.split.outputs._2}}"
     outputs:
       tenant: ${{ steps.split.outputs._2 }}
