@@ -1,0 +1,51 @@
+name: Ingestion Build Release
+
+on:
+  push:
+    branches: ['master']
+
+jobs:
+  check-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Get latest commit message
+        id: get_message
+        run: |
+          # Replace new lines with underscore in commit message so that we can set
+          # it to an environment variable
+          commit_message=$(echo -e "${{github.event.head_commit.message}}"|tr '\n' '_')
+          echo "title=${commit_message}" >> $GITHUB_ENV
+
+      - name: Check if release
+        if: contains(env.title, 'Merge pull request') && contains(env.title,'release/ingestion/')
+        run: echo "release=true" >> $GITHUB_ENV
+
+    outputs:
+      release: ${{env.release}}
+
+  setup:
+    runs-on: ubuntu-latest
+    needs:
+      - check-release
+    steps:
+      - name: Get branch name
+        run: |
+          commit_subject=$(echo -e "${{github.event.head_commit.message}}"|tr '\n' '_')
+
+          regex='Merge pull request #[0-9]+ from .+/(.+)$'
+          [[ $commit_subject =~ $regex ]]
+          echo"branch_name=${BASH_REMATCH[1]}" >> $GITHUB_ENV
+
+      - name: Split branch name
+        uses: rishabhgupta/split-by@v1.0.1
+        id: split
+        with:
+          split-by: '/'
+          string: '${{ env.branch_name }}'
+
+      - name: Print details
+        run: |
+          echo ${ steps.split.outputs._2 }
+    outputs:
+      tenant: ${{ steps.split.outputs._2 }}
+      image_name: 'ingestion-${{steps.split.outputs._2}}'
